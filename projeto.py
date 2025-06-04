@@ -21,3 +21,50 @@ while True:
     if escolha == '1':
         for p in produtos:
             print(f"ID: {p['id']} | {p['nome']} - R$ {p['preço']} | Estoque: {p['estoque']}")
+
+    elif escolha == '2':
+        try:
+            id_escolhido = int(input('Digite o ID do produto que deseja adicionar: '))
+            produto_encontrado = None
+
+            for produto in produtos:
+                if produto['id'] == id_escolhido:
+                    produto_encontrado = produto
+                    break
+
+            if not produto_encontrado:
+                print('Produto não encontrado.')
+                continue
+
+            if produto_encontrado['estoque'] == 0:
+                print('Produto sem estoque.')
+                continue
+
+            quantidade = int(input("Quantidade desejada: "))
+
+            if quantidade <= 0:
+                print('Quantidade inválida')
+                continue
+
+            if quantidade > produto_encontrado['estoque']:
+                print('Estoque insuficiente')
+                continue
+
+            for item in carrinho:
+                if item['id'] == id_escolhido:
+                    item['quantidade'] += quantidade
+                    break
+            
+            else:
+                carrinho.append({
+                    'id': produto_encontrado['id'],
+                    'nome': produto_encontrado['nome'],
+                    'preço': produto_encontrado['preço'],
+                    'quantidade': quantidade 
+                })
+
+                produto_encontrado['estoque'] -= quantidade
+                print(f'{quantidade} unidade(s) adicionada(s) ao carrinho.')
+
+        except ValueError:
+            print("Digite apenas valores válidos.")
