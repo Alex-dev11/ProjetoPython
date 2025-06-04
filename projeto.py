@@ -86,3 +86,11 @@ while True:
                 print(f'{nome} | {qtd} un. | R$ {preco_unit:.2f} cada | Subtotal: R$ {subtotal:.2f}')
             print('-' *40)
             print(f'Total da compra: R$ {total:.2f}')
+
+          elif escolha == '4':
+              print("Encerrando o sistema. Obrigado!")
+              break
+
+          else:
+              print('Opção inválida. Tente novamente')
+
