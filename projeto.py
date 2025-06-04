@@ -70,3 +70,19 @@ while True:
 
         except ValueError:
             print("Digite apenas valores válidos.")
+    elif escolha == '3':
+        if not carrinho:
+            print('Seu carrinho está vazio')
+        else:
+            print('\nSeu carrinho está vazio.')
+            print('-'*40)
+            total = 0
+            for item in carrinho:
+                nome = item['nome']
+                qtd = item['quantidade']
+                preco_unit = item['preço']
+                subtotal = qtd * preco_unit
+                total += subtotal
+                print(f'{nome} | {qtd} un. | R$ {preco_unit:.2f} cada | Subtotal: R$ {subtotal:.2f}')
+            print('-' *40)
+            print(f'Total da compra: R$ {total:.2f}')
