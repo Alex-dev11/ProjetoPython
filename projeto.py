@@ -30,7 +30,7 @@ def encontrar_produto(id_escolhido):
     for produto in produtos:
         if produto['id'] == id_escolhido:
                 return produto
-        return None
+    return None
             
 def adicionar_ao_carrinho():
     try:
@@ -73,86 +73,47 @@ def adicionar_ao_carrinho():
 
     except ValueError:
         print("Digite apenas valores válidos.")
-    # elif escolha == '3':
-    #     if not carrinho:
-    #         print('Seu carrinho está vazio')
-    #     else:
-    #         print('\nSeu carrinho está com os seguintes itens: ')
-    #         print('-'*40)
-    #         total = 0
-    #         for item in carrinho:
-    #             nome = item['nome']
-    #             qtd = item['quantidade']
-    #             preco_unit = item['preço']
-    #             subtotal = qtd * preco_unit
-    #             total += subtotal
-    #             print(f'{nome} | {qtd} un. | R$ {preco_unit:.2f} cada | Subtotal: R$ {subtotal:.2f}')
-    #         print('-' *40)
-    #         print(f'Total da compra: R$ {total:.2f}')
+
+def ver_carrinho():
+    if not carrinho:
+        print('Seu carrinho está vazio')
+        return
+    for item in carrinho:
+        print(f'{item["nome"]} | {item["quantidade"]} un. | R$ {item["preço"] * item["quantidade"]:.2f}')
     
-    # elif escolha == '4':
-    #     if not carrinho:
-    #         print('Carrinho vazio.')
-    #     else:
-    #         try:
-    #             id_remover = int(input('Digite o ID do produto que deseja remover'))
-    #             encontrado = False
+def remover_do_carrinho():
+    try:
+        id_remover = int(input('Digite o ID do produto que deseja remover'))
 
-    #             for item in carrinho:
-    #                 if item['id'] == id_remover:
-    #                     encontrado == True
-    #                     print(f'{item['nome']} - {item['quantidade']} no carrinho.')
-    #                     qtd_remover = int(input('Quantidade a remover: '))
-
-    #                     if qtd_remover <= 0:
-    #                         print('Quantidade inválida.')
-    #                         break
-    #                     elif qtd_remover >= item['quantidade']:
-    #                         carrinho.remove(item)
-    #                         print("Porduto completamnete removido do carrinho.")
-    #                     else:
-    #                         item['quantidade'] -= qtd_remover
-    #                         print(f'{qtd_remover} unidade(s) removida(s).')
-
-    #                     for p in produtos:
-    #                         if p['id'] == id_remover:
-    #                             p['estoque'] += qtd_remover
-    #                             break
-
-    #                     break
-
-    #                 if not encontrado:
-    #                     print('Produto não encontrado no carrinho.')
-    #         except ValueError:
-    #             print('Digite um número válido.')
-
-    # elif escolha == '5':
-    #     if not carrinho:
-    #         print('Seu carrinho está vazio.')
-    #     else:
-    #         print('\nResumo da compra:')
-    #         print('-'*40)
-    #         total = 0
-    #         for item in carrinho:
-    #             subtotal = item['preço'] * item['quantidade']
-    #             total += subtotal
-    #             print(f'{item["nome"]} | {item["quantidade"]} un. | R$ {item["preço"]:.2f} | Subtotal: R$ {subtotal:.2f}')
-    #         print('-'*40)
-    #         print(f'Total: R$ {total:.2f}')
-            
-    #         confirmar = input('Deseja finalizar a compra? (s/n): ').lower()
-    #         if confirmar == 's':
-    #             carrinho.clear()
-    #             print('Compra finalizada com sucesso!')
-    #         else:
-    #             print('Compra cancelada...')
-    # elif escolha == '6':       
-    #     print("Encerrando o sistema. Obrigado!")      
-    #     break     
-
-    # else:           
-    #     print('Opção inválida. Tente novamente')
-        
+        for item in carrinho:
+            if item['id'] == id_remover:
+                quantidade = int(input('Quantidade a remover: '))    
+                if quantidade >= item['quantidade']:
+                            carrinho.remove(item)          
+                else:
+                    item['quantidade'] -= quantidade
+                produto = encontrar_produto(id_remover)   
+                if produto:
+                    produto['estoque'] += quantidade
+                print('Item removido.')
+                return
+        print('Item não encontrado no carrinho.')
+    except ValueError:
+        print('Entrada inválida.')
+                           
+def finalizar_compra():
+        if not carrinho:
+            print('Seu carrinho está vazio.')
+            return
+        total = sum(item['preço'] * item['quantidade'] for item in carrinho)
+        print('Resumo da compra:')
+        for item in carrinho:
+            print(f'{item["nome"]} | {item["quantidade"]} un. | R$ {item["preço"] * item["quantidade"]:.2f}')
+        print('-'*40)
+        print(f'Total: R$ {total:.2f}')
+        carrinho.clear()
+        print('Compra finalizada com sucesso!')
+           
 while True:
     exibir_menu()
     escolha = input('Escolha uma opção: ')
@@ -160,3 +121,14 @@ while True:
         exibir_catalogo()
     elif escolha == '2':
         adicionar_ao_carrinho()
+    elif escolha == '3':
+         ver_carrinho()
+    elif escolha == '4':
+         remover_do_carrinho()
+    elif escolha == '5':
+         finalizar_compra()
+    elif escolha == '6':
+         print('Encerrando...')
+         break
+    else:
+         print('Opção inválida.')
