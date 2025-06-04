@@ -10,3 +10,14 @@ produtos = [
     {'id': 9, 'nome': "Cadeira Gamer ThunderX3", 'preço': 1100.00, "estoque": 2},
     {'id': 10, 'nome': "Mesa Digitalizadora Wacom", 'preço': 490.50, "estoque": 3},
 ]
+while True:
+    print('\nMENU:')
+    print('1. Ver catálogo')
+    print('2. Adicionar ao carrinho')
+    print('3. Sair')
+
+    escolha = input('Escolha uma opção: ')
+
+    if escolha == '1':
+        for p in produtos:
+            print(f"ID: {p['id']} | {p['nome']} - R$ {p['preço']} | Estoque: {p['estoque']}")
