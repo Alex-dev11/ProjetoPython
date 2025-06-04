@@ -10,6 +10,8 @@ produtos = [
     {'id': 9, 'nome': "Cadeira Gamer ThunderX3", 'preço': 1100.00, "estoque": 2},
     {'id': 10, 'nome': "Mesa Digitalizadora Wacom", 'preço': 490.50, "estoque": 3},
 ]
+carrinho = []
+
 while True:
     print('\nMENU:')
     print('1. Ver catálogo')
