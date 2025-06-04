@@ -18,7 +18,8 @@ while True:
     print('2. Adicionar ao carrinho')
     print('3. Ver carrinho')
     print('4. Remover')
-    print('5. Sair')
+    print('5. Finalizar')
+    print('6. Sair')
 
     escolha = input('Escolha uma opção: ')
 
@@ -125,13 +126,30 @@ while True:
             except ValueError:
                 print('Digite um número válido.')
 
-    elif escolha == '5':       
+    elif escolha == '5':
+        if not carrinho:
+            print('Seu carrinho está vazio.')
+        else:
+            print('\nResumo da compra:')
+            print('-'*40)
+            total = 0
+            for item in carrinho:
+                subtotal = item['preço'] * item['quantidade']
+                total += subtotal
+                print(f'{item['nome']} | {item['quantidade']} un. | R$ {item['preço':.2f]} | Subtotal: R$ {subtotal:.2f}')
+            print('-'*40)
+            print(f'Total: R$ {total:.2f}')
+            
+            confirmar = input('Deseja finalizar a compra? (s/n): ').lower()
+            if confirmar == 's':
+                carrinho.clear()
+                print('Compra finalizada com sucesso!')
+            else:
+                print('Compra cancelada...')
+    elif escolha == '6':       
         print("Encerrando o sistema. Obrigado!")      
         break     
 
     else:           
         print('Opção inválida. Tente novamente')
-
-
-
-  
+        
