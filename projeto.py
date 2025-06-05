@@ -1,3 +1,5 @@
+import os
+
 produtos = [
     {'id': 1, 'nome': "Notebook Galaxy book4", 'preço': 3400.00, "estoque": 6},
     {'id': 2, 'nome': "Teclado Gamer Redragon", 'preço': 165.67, "estoque": 11},
@@ -10,16 +12,23 @@ produtos = [
     {'id': 9, 'nome': "Cadeira Gamer ThunderX3", 'preço': 1100.00, "estoque": 2},
     {'id': 10, 'nome': "Mesa Digitalizadora Wacom", 'preço': 490.50, "estoque": 3},
 ]
+
 carrinho = []
 
+def cor(txt, cor_code="0"):
+     return f"\033[{cor_code}m{txt}\033[0m"
+
+def limpar():
+    os.system("cls" if os.name == "nt" else "clear")
+
 def exibir_menu():
-    print('\nMENU:')
-    print('1. Ver catálogo')
-    print('2. Adicionar ao carrinho')
-    print('3. Ver carrinho')
-    print('4. Remover')
-    print('5. Finalizar')
-    print('6. Sair')
+    print(cor('\n🛒 MENU PRINCIPAL', "1;36"))
+    print(cor("1.", "1;33"),' Ver catálogo')
+    print(cor("2.", "1;33"), 'Adicionar ao carrinho')
+    print(cor("3.", "1;33"), 'Ver carrinho')
+    print(cor("4.", "1;33"), 'Remover item')
+    print(cor("5.", "1;33"),' Finalizar')
+    print(cor("6.", "1;33"), 'Sair')
 
 
 def exibir_catalogo():
